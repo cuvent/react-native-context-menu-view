@@ -1,8 +1,8 @@
 {
   "name": "react-native-context-menu-view",
-  "title": "React Native Context Menu View",
+  "title": "React Native Context Menu View GH",
   "version": "1.2.1",
-  "description": "Use native context menu views from React Native",
+  "description": "Use native context menu views from React Native with gesture handler support.",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -10,8 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mpiannucci/react-native-context-menu-view.git",
-    "baseUrl": "https://github.com/mpiannucci/react-native-context-menu-view"
+    "url": "git+https://github.com/cuvent/react-native-context-menu-view.git",
+    "baseUrl": "https://github.com/cuvent/react-native-context-menu-view"
   },
   "keywords": [
     "react-native"
@@ -25,7 +25,8 @@
   "readmeFilename": "README.md",
   "peerDependencies": {
     "react": "^16.8.1",
-    "react-native": ">=0.60.0-rc.0 <1.0.x"
+    "react-native": ">=0.60.0-rc.0 <1.0.x",
+    "react-native-gesture-handler": "^1.10.3"
   },
   "devDependencies": {
     "react": "^16.9.0",

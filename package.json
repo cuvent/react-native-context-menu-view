@@ -1,5 +1,5 @@
 {
-  "name": "react-native-context-menu-view",
+  "name": "@cuvent/react-native-context-menu-view",
   "title": "React Native Context Menu View GH",
   "version": "1.2.1",
   "description": "Use native context menu views from React Native with gesture handler support.",

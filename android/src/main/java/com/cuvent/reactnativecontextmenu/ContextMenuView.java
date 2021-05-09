@@ -1,4 +1,4 @@
-package com.cuvent.experiences.friends.nativemodules.ContextMenu;
+package com.cuvent.reactnativecontextmenu;
 
 import android.util.Log;
 import android.view.Menu;
@@ -75,7 +75,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
     }
 
     @Override
-    public void addView(View child, int index) {
+    public void addView(final View child, int index) {
         super.addView(child, index);
 
         child.setClickable(false);
@@ -84,9 +84,12 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
             initLongPressGestureHandler();
         }
 
-        dispatchInAppropriateThread(() -> {
-            Log.d("ContextMenuView", "This tag: " + this.longPressGestureHandler.getTag() + " this id: " + child.getId());
-            gestureHandlerModule.attachGestureHandler(this.longPressGestureHandler.getTag(), child.getId());
+        dispatchInAppropriateThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("ContextMenuView", "This tag: " + ContextMenuView.this.longPressGestureHandler.getTag() + " this id: " + child.getId());
+                gestureHandlerModule.attachGestureHandler(ContextMenuView.this.longPressGestureHandler.getTag(), child.getId());
+            }
         });
     }
 

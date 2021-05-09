@@ -1,4 +1,4 @@
-package com.cuvent.experiences.friends.nativemodules.ContextMenu;
+package com.cuvent.reactnativecontextmenu;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

@@ -73,6 +73,7 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation project(':react-native-gesture-handler')
 }
 
 def configureReactNativePom(def pom) {
@@ -82,7 +83,7 @@ def configureReactNativePom(def pom) {
         name packageJson.title
         artifactId packageJson.name
         version = packageJson.version
-        group = "com.mpiannucci.reactnativecontextmenu"
+        group = "com.cuvent.reactnativecontextmenu"
         description packageJson.description
         url packageJson.repository.baseUrl
 

@@ -13,8 +13,16 @@ module.exports = {
       { get: (_, name) => path.resolve('.', 'node_modules', name) }
     )
   },
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
 
   // quick workaround solution for issue with symlinked modules ref:
   // https://github.com/brodybits/create-react-native-module/issues/232
-  watchFolders: ['.', '..']
+  // watchFolders: ['.', '..']
 }

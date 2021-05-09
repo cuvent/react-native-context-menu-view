@@ -1,16 +1,11 @@
-package com.mpiannucci.reactnativecontextmenu;
-
-import android.view.ViewGroup;
+package com.cuvent.experiences.friends.nativemodules.ContextMenu;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.facebook.react.views.view.ReactViewGroup;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Nullable;

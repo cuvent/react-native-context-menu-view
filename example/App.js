@@ -38,7 +38,7 @@ const App = () => {
           disabled: true,
         },
       ]} onPress={(event) => {
-        const {index, name} = event.nativeEvent;
+        const { index, name } = event.nativeEvent;
         if (index == 0) {
           setColor(name.toLowerCase());
         } else {
@@ -47,9 +47,9 @@ const App = () => {
       }} onCancel={() => {
         console.warn('CANCELLED')
       }} previewBackgroundColor="transparent">
-        <View style={[styles.rectangle, {backgroundColor: color, borderRadius: circle ? 999 : 0}]} />
+        <View style={[styles.rectangle, { backgroundColor: color, borderRadius: circle ? 999 : 0 }]} />
       </ContextMenu>
-      <View style={{color: 'red', height: 100, width: 100}} />
+      <View style={{ color: 'red', height: 100, width: 100 }} />
     </SafeAreaView>
   );
 }
@@ -58,10 +58,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'black',
   },
   rectangle: {
-    width: 200, 
+    width: 200,
     height: 200,
   }
 });

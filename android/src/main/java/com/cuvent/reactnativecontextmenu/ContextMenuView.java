@@ -1,6 +1,5 @@
 package com.cuvent.reactnativecontextmenu;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,7 +19,16 @@ import com.swmansion.gesturehandler.LongPressGestureHandler;
 import com.swmansion.gesturehandler.OnTouchEventListener;
 import com.swmansion.gesturehandler.react.RNGestureHandlerModule;
 
+import java.util.ArrayList;
+
 import javax.annotation.Nullable;
+
+class TagCounter {
+    // every handler needs a tag. The tag is being assigned from RNGH from JS.
+    // Thus we just take a very high tag, that should never be taken from JS.
+    public static int tag = 99999;
+}
+
 
 public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
 
@@ -40,7 +48,6 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
     PopupMenu contextMenu;
 
     LongPressGestureHandler longPressGestureHandler;
-
     boolean cancelled = true;
 
     public ContextMenuView(final ReactContext context) {
@@ -58,6 +65,7 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
 
     protected void initLongPressGestureHandler() {
         this.longPressGestureHandler = new LongPressGestureHandler(getContext());
+        this.longPressGestureHandler.setTag(TagCounter.tag++);
         this.longPressGestureHandler.setOnTouchEventListener(new OnTouchEventListener<LongPressGestureHandler>() {
             @Override
             public void onTouchEvent(LongPressGestureHandler handler, MotionEvent event) {
@@ -79,25 +87,39 @@ public class ContextMenuView extends ReactViewGroup implements PopupMenu.OnMenuI
         super.addView(child, index);
 
         child.setClickable(false);
+    }
 
-        if (this.longPressGestureHandler == null) {
-            initLongPressGestureHandler();
-        }
+    @Override
+    public void onViewAdded(final View child) {
+        super.onViewAdded(child);
 
         dispatchInAppropriateThread(new Runnable() {
             @Override
             public void run() {
-                Log.d("ContextMenuView", "This tag: " + ContextMenuView.this.longPressGestureHandler.getTag() + " this id: " + child.getId());
-                gestureHandlerModule.attachGestureHandler(ContextMenuView.this.longPressGestureHandler.getTag(), child.getId());
+                try {
+                    gestureHandlerModule.attachGestureHandler(ContextMenuView.this.longPressGestureHandler.getTag(), child.getId());
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
 
     @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        gestureHandlerModule.dropGestureHandler(this.longPressGestureHandler.getTag());
-        this.longPressGestureHandler = null;
+    public void onViewRemoved(final View child) {
+        super.onViewRemoved(child);
+
+        dispatchInAppropriateThread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<GestureHandler> handlers = gestureHandlerModule.getRegistry().getHandlersForView(child);
+                if (handlers != null) {
+                    for (GestureHandler handler : handlers) {
+                        gestureHandlerModule.dropGestureHandler(handler.getTag());
+                    }
+                }
+            }
+        });
     }
 
     public void setActions(@Nullable ReadableArray actions) {
